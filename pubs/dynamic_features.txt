@@ -1,0 +1,78 @@
+Cohort: Martin-criteria sepsis adult patients
+
+Primary Output: 30-day mortality
+
+Data: First 72 hours of ICU stay
+
+Patient:
+ - age
+ - gender
+ - weight
+ - height
+ - SAPS-I
+ - SOFA
+ - APACHE IV
+
+Physiologic variables:
+ - systolic, diastolic and mean blood pressure (invasive or non-invasive)
+ - heart rate
+ - central venous pressure
+ - peripheral oxygen saturation
+ - respiration rate
+ - urine output
+ - temperature
+
+Lab variables:
+ - lactate
+ - creatinin
+ - calcium
+ - chloride
+ - sodium
+ - bicardbonate
+ - BUN
+ - hematocrit
+ - hemoglobin
+ - platelets
+ - glucose
+ - magnesium
+ - phosphorous
+ - white blood cell count (WBC)
+ - total bilirubin
+ - alanine transaminase (ALT)
+ - albumin
+ - international normalized ratio (prothombin time) (INR)
+ - partial pressure of oxygen (PaO2)
+ - partial pressure of carbon dioxide (PaCO2)
+ - blood pH
+
+Static Features (daily)
+ - mean and std
+ - 25,50 & 70 percentiles
+ - inter-quartile range (75-25)
+ - kurtosis
+ - skewness
+ - Rescaled range, i.e. (max-min)/std
+
+Dynamics Features (over 12,24,48,72 hours)
+ - m.x + c (linear approximation)
+ - max delta (%), both increase and decrease in timeseries
+ - entropy
+ - delta (percentage change) of static features
+
+Treatments/Procedures
+ - onset of vasopressor therapy (onset - icustay_intime)
+ - vasopressor dosage
+ - duration of vasopressor therapy
+ - total amount of fluid in
+ - rate of fluid in
+ - onset of renal replacement therapy (onset - icustay_intime)
+ - duration of renal replacement therapy
+ - onset of ventilation (onset - icustay_intime)
+ - duration of ventilation
+ - fraction of inspired oxygen (FiO2)
+ - ventilated volume
+
+
+
+
+
