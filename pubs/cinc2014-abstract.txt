@@ -1,0 +1,18 @@
+Predicting mortality in intensive care units (ICU) remains a significant challenge. The problem is faced 
+by physicians and patients' families alike, both in terms of triaging resources and accessing whether to 
+switch code status from full status, to do not resuscitate (DNR) to comfort measures only (CMO). 
+Common methods of predicting mortality, such as Severity of Acute Physiology Scure (SAPS) or the 
+Acute Physiology and Chronic Health Evaluation (APACHE), use a combination of features to assess 
+patient condition. However, both SAPS and APACHE tend to have poor predictivity across a 
+population of patients. Our hypothesis is that in any given population, patient phenotypes can 
+be clustered and that different features could be used to predict mortality for 
+different patient subgroups. To assess this hypothesis we propose a data-drive approach that uses 
+a genetic algorithm (GA) coupled with Gaussian mixture model (GMM) to identify which features best 
+predict mortality for different patient subgroups. We extracted 50 variables from the MIMIC-II database 
+from the first 24 hours of an ICU stay for patients admited to the ICU with sepsis. Median values for each 
+variable were calculated, with the addition of trend information for vital sign variables where higher 
+frequency data was available. The final feature vector consists of 152 parameters. Each iteration of the GA 
+was terminated when a particular mixture in the GMM had a 28-mortality prediction AUC greater than 0.75. 
+Patients associated with the most predictive mixture were removed from the training dataset and the GA is 
+repeated to identify additional patient subgroups. The top 5 predictive mixtures were used in an ensemble 
+classifier and compared against SAPS-I and a simple SVM classifier using all 152 parameters.     
