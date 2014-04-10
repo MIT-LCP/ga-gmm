@@ -43,7 +43,7 @@ with cohort as (
       where ce.itemid in (51, 442, 455) --noninvasive (442, 455) & invasive blood pressure (51)
       and ce.value1num <> 0
       and ce.value1num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 1
+      and extract(day from ce.charttime - fc.icustay_intime) < 2
       order by subject_id, icustay_id, post_adm
 )
 --select * from sysbp; -- 29785
@@ -77,7 +77,7 @@ with cohort as (
       where ce.itemid in (51, 442,455) --noninvasive & invasive blood pressure
       and ce.value2num <> 0
       and ce.value2num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 1
+      and extract(day from ce.charttime - fc.icustay_intime) < 2
       order by subject_id, icustay_id, post_adm
 )
 --select count(distinct icustay_id) from diabp_raw; --29780
@@ -112,7 +112,7 @@ with cohort as (
       where itemid in (52, 224, 443, 456) -- invasive (52, 224)
       and ce.value1num <> 0
       and ce.value1num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 1
+      and extract(day from ce.charttime - fc.icustay_intime) < 2
       order by subject_id, icustay_id, post_adm
 )
 --select count(distinct icustay_id) from mbp_raw; --29765
@@ -148,7 +148,7 @@ with cohort as (
       and ce.value1num is not null
       and ce.value2num <> 0
       and ce.value2num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 1
+      and extract(day from ce.charttime - fc.icustay_intime) < 2
       order by subject_id, icustay_id, post_adm
 
 )
@@ -185,7 +185,7 @@ with cohort as (
       where itemid = 211 --heart rate
       and ce.value1num <> 0
       and ce.value1num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 1
+      and extract(day from ce.charttime - fc.icustay_intime) < 2
       order by subject_id, icustay_id, post_adm
 )
 --select * from hr_raw;
@@ -220,7 +220,7 @@ with cohort as (
       where itemid in (113, 1103) --cvp
       and ce.value1num <> 0
       and ce.value1num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 1
+      and extract(day from ce.charttime - fc.icustay_intime) < 2
       order by subject_id, icustay_id, post_adm
 )
 --select * from cvp;
@@ -256,7 +256,7 @@ with cohort as (
       where itemid in (646, 834) -- spo2
       and ce.value1num <> 0
       and ce.value1num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 1
+      and extract(day from ce.charttime - fc.icustay_intime) < 2
       order by subject_id, icustay_id, post_adm
 )
 --select * from spo2_raw;
@@ -295,7 +295,7 @@ with cohort as (
       --             3603 values look somehow elevated (check if it corresponds to neonates)
       and ce.value1num <> 0
       and ce.value1num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 1
+      and extract(day from ce.charttime - fc.icustay_intime) < 2
       order by subject_id, icustay_id, post_adm
 )
 --select * from br_raw;
@@ -331,7 +331,7 @@ with cohort as (
                        428, 473, 2042, 2068, 2111, 2119, 2130, 1922, 2810, 2859,
                        3053, 3462, 3519, 3175, 2366, 2463, 2507, 2510, 2592,
                        2676, 3966, 3987, 4132, 4253, 5927)              
-      and extract(day from ce.charttime - fc.icustay_intime) < 1
+      and extract(day from ce.charttime - fc.icustay_intime) < 2
       and volume is not null
       order by subject_id, icustay_id, post_adm
 )
@@ -369,7 +369,7 @@ with cohort as (
       and ce.value1num <> 0
       and ce.value1num is not null
       order by subject_id, icustay_id, post_adm
-      --and extract(day from ce.charttime - fc.icustay_intime) < 1
+      --and extract(day from ce.charttime - fc.icustay_intime) < 2
 )
 --select * from temp_raw;
 
@@ -425,51 +425,61 @@ with cohort as (
         fc.*,
         sbp.sysbp_med,
         sbp.sysbp_min,
+        sbp.sysbp_max,
         sbp.sysbp_std,
         sbp.sysbp_slp,
         
         dbp.diabp_med,
         dbp.diabp_min,
+        dbp.diabp_max,
         dbp.diabp_std,
         dbp.diabp_slp,
         
         mbp.mbp_med,
         mbp.mbp_min,
+        mbp.mbp_max,
         mbp.mbp_std,
         mbp.mbp_slp,
         
         pp.pp_med,
         pp.pp_min,
+        pp.pp_max,
         pp.pp_std,
         pp.pp_slp,
         
         hr.hr_med,
         hr.hr_min,
+        hr.hr_max,
         hr.hr_std,
         hr.hr_slp,
         
         cvp.cvp_med,
         cvp.cvp_min,
+        cvp.cvp_max,
         cvp.cvp_std,
         cvp.cvp_slp,
         
         spo2.spo2_med,
         spo2.spo2_min,
+        spo2.spo2_max,
         spo2.spo2_std,
         spo2.spo2_slp,
 
         br.br_med,
         br.br_min,
+        br.br_max,
         br.br_std,
         br.br_slp,
         
         uo.uo_med,
         uo.uo_min,
+        uo.uo_max,
         uo.uo_std,
         uo.uo_slp,
         
         t.temp_med,
         t.temp_min,
+        t.temp_max,
         t.temp_std,
         t.temp_slp
         
