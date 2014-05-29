@@ -11,44 +11,44 @@ with labs_raw as (
           as post_adm,
           case
             when c.itemid in (50383,50029)
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'HCT'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'HCT'
             when c.itemid in (51326,50468,50316) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'WBC'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'WBC'
             when c.itemid in (50112,50936,50006) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'GLUCOSE'  
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'GLUCOSE'  
             when c.itemid in (50803,50022,50172,50025) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'HCO3'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'HCO3'
             when c.itemid in (50009,50821,50976,50149)  
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'POTASSIUM'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'POTASSIUM'
             when c.itemid in (50989,50823,50159,50012) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'SODIUM'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'SODIUM'
             when c.itemid in (51011,50177) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'BUN'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'BUN'
             when c.itemid in (50090,50916) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'CREATININE'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'CREATININE'
             when c.itemid in (50386,50007,50184) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'HGB'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'HGB'
             when c.itemid in (50428) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'PLATELETS'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'PLATELETS'
             when c.itemid in (50083,50004) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'CHLORIDE'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'CHLORIDE'
             when c.itemid in (50010) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'LACTATE'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'LACTATE'
             when c.itemid in (50018) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'PH'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'PH'
             when c.itemid in (50019) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'PO2'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'PO2'
             when c.itemid in (664,838) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'SVO2'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'SVO2'
             when c.itemid in (50195) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'BNP'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'BNP'
             when c.itemid in (50189) 
-              and extract(day from c.charttime - s.icustay_intime) < 2 then 'TROPONIN'
+              and extract(day from c.charttime - s.icustay_intime) < 3 then 'TROPONIN'
           end as category,
           valuenum
-   from tbrennan.mimic2v26_24hr_vital_signs s
+   from tbrennan.mimic2v26_48hr_vital_signs s
    join mimic2v26.labevents c on s.icustay_id = c.icustay_id
-   where extract(day from c.charttime - s.icustay_intime) < 2
+   where extract(day from c.charttime - s.icustay_intime) < 3
    and ((c.itemid in (50383,50029) -- 'HCT'
           and c.valuenum between 5 and 100) -- 0 <> 390
         or (c.itemid in (51326,50468,50316) -- 'WBC'

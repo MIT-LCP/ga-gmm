@@ -1,9 +1,9 @@
 --created by mpimentel, GA-GMM project 
 -- Last Updated: August 2013
 
-drop materialized view mimic2v26_24hr_vital_signs;
+drop materialized view mimic2v26_48hr_vital_signs;
 
-create materialized view mimic2v26_24hr_vital_signs as
+create materialized view mimic2v26_48hr_vital_signs as
 
 with cohort as (
   select 
@@ -43,7 +43,7 @@ with cohort as (
       where ce.itemid in (51, 442, 455) --noninvasive (442, 455) & invasive blood pressure (51)
       and ce.value1num <> 0
       and ce.value1num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 2
+      and extract(day from ce.charttime - fc.icustay_intime) < 3
       order by subject_id, icustay_id, post_adm
 )
 --select * from sysbp; -- 29785
@@ -77,7 +77,7 @@ with cohort as (
       where ce.itemid in (51, 442,455) --noninvasive & invasive blood pressure
       and ce.value2num <> 0
       and ce.value2num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 2
+      and extract(day from ce.charttime - fc.icustay_intime) < 3
       order by subject_id, icustay_id, post_adm
 )
 --select count(distinct icustay_id) from diabp_raw; --29780
@@ -112,7 +112,7 @@ with cohort as (
       where itemid in (52, 224, 443, 456) -- invasive (52, 224)
       and ce.value1num <> 0
       and ce.value1num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 2
+      and extract(day from ce.charttime - fc.icustay_intime) < 3
       order by subject_id, icustay_id, post_adm
 )
 --select count(distinct icustay_id) from mbp_raw; --29765
@@ -148,7 +148,7 @@ with cohort as (
       and ce.value1num is not null
       and ce.value2num <> 0
       and ce.value2num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 2
+      and extract(day from ce.charttime - fc.icustay_intime) < 3
       order by subject_id, icustay_id, post_adm
 
 )
@@ -185,7 +185,7 @@ with cohort as (
       where itemid = 211 --heart rate
       and ce.value1num <> 0
       and ce.value1num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 2
+      and extract(day from ce.charttime - fc.icustay_intime) < 3
       order by subject_id, icustay_id, post_adm
 )
 --select * from hr_raw;
@@ -220,7 +220,7 @@ with cohort as (
       where itemid in (113, 1103) --cvp
       and ce.value1num <> 0
       and ce.value1num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 2
+      and extract(day from ce.charttime - fc.icustay_intime) < 3
       order by subject_id, icustay_id, post_adm
 )
 --select * from cvp;
@@ -256,7 +256,7 @@ with cohort as (
       where itemid in (646, 834) -- spo2
       and ce.value1num <> 0
       and ce.value1num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 2
+      and extract(day from ce.charttime - fc.icustay_intime) < 3
       order by subject_id, icustay_id, post_adm
 )
 --select * from spo2_raw;
@@ -295,7 +295,7 @@ with cohort as (
       --             3603 values look somehow elevated (check if it corresponds to neonates)
       and ce.value1num <> 0
       and ce.value1num is not null
-      and extract(day from ce.charttime - fc.icustay_intime) < 2
+      and extract(day from ce.charttime - fc.icustay_intime) < 3
       order by subject_id, icustay_id, post_adm
 )
 --select * from br_raw;
@@ -331,7 +331,7 @@ with cohort as (
                        428, 473, 2042, 2068, 2111, 2119, 2130, 1922, 2810, 2859,
                        3053, 3462, 3519, 3175, 2366, 2463, 2507, 2510, 2592,
                        2676, 3966, 3987, 4132, 4253, 5927)              
-      and extract(day from ce.charttime - fc.icustay_intime) < 2
+      and extract(day from ce.charttime - fc.icustay_intime) < 3
       and volume is not null
       order by subject_id, icustay_id, post_adm
 )
@@ -366,10 +366,10 @@ with cohort as (
     join cohort fc 
     on ce.icustay_id = fc.icustay_id
       where itemid in (676, 677, 678, 679) -- temperature
+      and extract(day from ce.charttime - fc.icustay_intime) < 3
       and ce.value1num <> 0
       and ce.value1num is not null
       order by subject_id, icustay_id, post_adm
-      --and extract(day from ce.charttime - fc.icustay_intime) < 2
 )
 --select * from temp_raw;
 
