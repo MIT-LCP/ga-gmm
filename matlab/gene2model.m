@@ -1,3 +1,6 @@
+%AUTHOR: MOHAMMAD MAHDI GHASSEMI
+%EMAIL: ghassemi@mit.edu
+
 function [fun_out, b_i] =gene2model(x, genes)
 %genes is a column of 0s and 1s that say if the feature is on or off.
 %Define THE OVERALL STRUCTURE OF THE "GENOME"

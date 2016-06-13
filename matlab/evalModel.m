@@ -1,3 +1,5 @@
+%AUHTOR: MOHAMMAD MAHDI GHASSEMI, MIT
+%EMAIL: ghassemi@mit.edu
 function [lse_result] = evalModel(x,y,bval_i,opts,model,i,num_points_to_test,upper_bound,lower_bound,ms)
 % Evaluate the passed in function and return the results
 
